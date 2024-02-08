@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, Users
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -30,21 +30,21 @@ def create_token():
 
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user(id):
-    user = User.query.get(id)
+    user = Users.query.get(id)
     if user is None:
         raise APIException("user not fount", status_code = 404)
     return jsonify(user.serialize()), 200
 
 @api.route('/user', methods=["GET"])
 def get_all_users():
-    users = User.query.all()
+    users = Users.query.all()
     all_users = list(map(lambda x:x.serialize(),users))
     return jsonify(all_users), 200
 
 @api.route('/signup', methods = ['POST'])
 def create_user():
     body = request.get_json()
-    user = User()
+    user = Users()
     if "email" not in body:
         raise APIException('You need to specify the email', 400)
     if "password" not in body:
@@ -59,7 +59,7 @@ def create_user():
 @api.route('/user/<int:id>', methods = ['PUT'])
 def update_user(id):
     body = request.get_json()
-    user = User.query.get(id)
+    user = Users.query.get(id)
     if user is None:
         raise APIException("user not found", status_code = 404) 
     if "email" in body: 
@@ -73,7 +73,7 @@ def update_user(id):
 
 @api.route('/user/<int:id>', methods = ['DELETE'])
 def delete_user(id): 
-    user = User.query.get(id)
+    user = Users.query.get(id)
     if user is None:
         raise APIException("user not fount", status_code = 404)
     db.session.delete(user)
