@@ -8,6 +8,7 @@ from datetime import timedelta
 from api.models import db, Users
 from flask_cors import CORS
 from api.utils import generate_sitemap, APIException
+import hashlib
 
 api = Blueprint('api', __name__)
 
@@ -47,14 +48,37 @@ def create_user():
     user = Users()
     if "email" not in body:
         raise APIException('You need to specify the email', 400)
-    if "password" not in body:
+    if "password_hash" not in body:
         raise APIException('You need to specify the password', 400)    
     user.email = body['email']
-    user.password = body['password']
+    user.password_hash = hashlib.sha256(body['password_hash'].encode("utf-8")).hexdigest()
     user.is_active = True
-    db.session.add(user)
-    db.session.commit()
-    return jsonify(user.serialize()), 200
+    has_user = Users.query.filter_by(email = user.email, password_hash = user.password_hash).first()
+    if has_user is None:
+        db.session.add(user)
+        db.session.commit()
+        return jsonify(user.serialize()), 200
+    else:
+        return jsonify("User Already Exists")
+   
+
+@api.route('/login', methods = ['POST'])
+def login():
+    body = request.get_json()
+    user = Users()
+    if "email" not in body:
+        raise APIException('You need to specify the email', 400)
+    if "password_hash" not in body:
+        raise APIException('You need to specify the password', 400)    
+    user.email = body['email']
+    user.password_hash = hashlib.sha256(body['password_hash'].encode("utf-8")).hexdigest()
+    user.is_active = True
+    has_user = Users.query.filter_by(email = user.email, password_hash = user.password_hash).first()
+    if has_user is not None:
+        access_token = create_access_token(identity = user.token)
+        return jsonify(access_token = access_token)
+    else:
+        return jsonify("Email and/or Password not found")
 
 @api.route('/user/<int:id>', methods = ['PUT'])
 def update_user(id):
@@ -64,8 +88,8 @@ def update_user(id):
         raise APIException("user not found", status_code = 404) 
     if "email" in body: 
         user.email = body["email"]       
-    if "password" in body: 
-        user.password = body["password"]
+    if "password_hash" in body: 
+        user.password_hash = body["password_hash"]
     if "is_active" in body: 
         user.is_active = body["is_active"]
     db.session.commit()

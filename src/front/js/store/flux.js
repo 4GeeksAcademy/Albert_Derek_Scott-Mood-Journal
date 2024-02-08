@@ -40,7 +40,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		  };
 		  try {
 			const resp = await fetch(
-			  "https://ubiquitous-space-spoon-wrgxgpw7xv7cjv-3001.app.github.dev/api/register",
+			  "https://symmetrical-eureka-wwwvq6qqp5rcpgx-3001.app.github.dev/api/register",
 			  opts
 			);
 			const data = await resp.json();
@@ -87,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   
 		  try {
 			const resp = await fetch(
-			  "https://ubiquitous-space-spoon-wrgxgpw7xv7cjv-3001.app.github.dev/api/token",
+			  "https://symmetrical-eureka-wwwvq6qqp5rcpgx-3001.app.github.dev/api/token",
 			  opts
 			);
 			if (resp.status !== 200) {
@@ -114,7 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		  try {
 			// fetching data from the backend
 			const resp = await fetch(
-			  "https://ubiquitous-space-spoon-wrgxgpw7xv7cjv-3001.app.github.dev/api/hello",
+			  "https://symmetrical-eureka-wwwvq6qqp5rcpgx-3001.app.github.dev/api/hello",
 			  opts
 			);
 			const data = await resp.json();
