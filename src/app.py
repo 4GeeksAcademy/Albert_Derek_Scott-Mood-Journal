@@ -8,68 +8,56 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from api.utils import APIException, generate_sitemap
 from api.models import db
-from api.routes import api
+from api.routes import api as api_blueprint
 from api.admin import setup_admin
 from api.commands import setup_commands
 
-# from models import Person
+# Initialize Flask app
+app = Flask(__name__, static_folder='../public', static_url_path='')
 
+# Environment configuration
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
-static_file_dir = os.path.join(os.path.dirname(
-    os.path.realpath(__file__)), '../public/')
-app = Flask(__name__)
-app.url_map.strict_slashes = False
 
-# database condiguration
-db_url = os.getenv("DATABASE_URL")
-if db_url is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
-        "postgres://", "postgresql://")
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
-
+# Database configuration
+db_url = os.getenv("DATABASE_URL", "sqlite:////tmp/test.db")
+if db_url.startswith("postgres://"):  # Compatibility with newer SQLAlchemy versions
+    db_url = db_url.replace("postgres://", "postgresql://")
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db, compare_type=True)
+
+# JWT Configuration
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+
+# Initialize extensions
 db.init_app(app)
+jwt = JWTManager(app)
+Migrate(app, db, compare_type=True)
 
-# add the admin
+# Setup admin and commands
 setup_admin(app)
-
-# add the admin
 setup_commands(app)
 
-# Add all endpoints form the API with a "api" prefix
-app.register_blueprint(api, url_prefix='/api')
+# Register blueprints
+app.register_blueprint(api_blueprint, url_prefix='/api')
 
-# Handle/serialize errors like a JSON object
-
-
+# Error handling
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
-# generate sitemap with all your endpoints
-
-
+# Sitemap and static file serving
 @app.route('/')
 def sitemap():
     if ENV == "development":
         return generate_sitemap(app)
-    return send_from_directory(static_file_dir, 'index.html')
-
-# any other endpoint will try to serve it like a static file
-
+    return app.send_static_file('index.html')
 
 @app.route('/<path:path>', methods=['GET'])
-def serve_any_other_file(path):
-    if not os.path.isfile(os.path.join(static_file_dir, path)):
-        path = 'index.html'
-    response = send_from_directory(static_file_dir, path)
-    response.cache_control.max_age = 0  # avoid cache memory
-    return response
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
 
-
-# this only runs if `$ python src/main.py` is executed
+# Main entry point
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    app.run(host='0.0.0.0', port=PORT, debug=ENV == "development")
+
