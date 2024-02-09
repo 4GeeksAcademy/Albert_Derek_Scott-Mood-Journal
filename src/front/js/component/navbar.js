@@ -17,3 +17,9 @@ export const Navbar = () => {
 		</nav>
 	);
 };
+//need login button
+//need logout button
+// need home button
+//need profile button
+// need analytics button
+// add entry button
