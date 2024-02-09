@@ -1,5 +1,4 @@
-rm -R -f ./migrations &&
-pipenv run init &&
+rm ./migrations/versions/* &&
 dropdb -h localhost -U gitpod example || true &&
 createdb -h localhost -U gitpod example || true &&
 psql -h localhost example -U gitpod -c 'CREATE EXTENSION unaccent;' || true &&
