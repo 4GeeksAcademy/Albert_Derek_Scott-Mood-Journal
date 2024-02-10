@@ -1,0 +1,18 @@
+[
+  {
+    "mood_type": "Happy",
+    "description": "Feeling joyful and uplifted, a state of general contentment and well-being."
+  },
+  {
+    "mood_type": "Sad",
+    "description": "Feeling down, blue, or unhappy, often with a decrease in energy or motivation."
+  },
+  {
+    "mood_type": "Anxious",
+    "description": "Feeling worried, nervous, or uneasy, typically about an imminent event or something with an uncertain outcome."
+  },
+  {
+    "mood_type": "Angry",
+    "description": "Feeling or showing strong annoyance, displeasure, or hostility."
+  }
+]

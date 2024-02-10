@@ -1,7 +1,8 @@
 
 import click
-from api.models import db, Users
-from api.models import db, Users
+import json
+from api.models import db, Users, Mood
+
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -29,6 +30,24 @@ def setup_commands(app):
             print("User: ", users.email, " created.")
 
         print("All test users created")
+
+
+    @app.cli.command("import-moods")
+    @click.argument('./src/data/moodData.json')  # Path to the JSON file as an argument
+    def import_moods(file_path):
+        """Import moods from a JSON file."""
+        with open(file_path, 'rt') as json_file:
+            moods_data = json.load(json_file)
+        
+        moods = []
+        for mood_data in moods_data:
+            mood = Mood(**mood_data)  # Create a Mood instance for each record
+            moods.append(mood)
+        
+        with app.app_context():
+            db.session.add_all(moods)  # Add all Mood instances to the session
+            db.session.commit()  # Commit the session to save changes to the database
+            print(f"{len(moods)} moods imported successfully.")
 
     @app.cli.command("insert-test-data")
     def insert_test_data():
