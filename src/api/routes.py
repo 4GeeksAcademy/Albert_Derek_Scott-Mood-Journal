@@ -98,6 +98,20 @@ def get_all_users():
     all_users = [user.serialize() for user in users]
     return jsonify(all_users), 200
 
+
+
+
+@api.route('/user/profile', methods=['GET'])
+@jwt_required()
+def get_user_profile():
+    current_user_id = get_jwt_identity()
+    user = Users.query.get(current_user_id)
+    if user is None:
+        return jsonify({'message': 'User not found'}), 404
+
+    return jsonify(user.serialize()), 200
+
+
 @api.route('/user/<int:id>', methods=['PUT'])
 @jwt_required()
 def update_user(id):

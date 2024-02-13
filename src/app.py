@@ -11,9 +11,12 @@ from api.models import db
 from api.routes import api as api_blueprint
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_cors import CORS
 
 # Initialize Flask app
-app = Flask(__name__, static_folder='../public', static_url_path='')
+app = Flask(__name__)
+
+CORS(app)
 
 # Environment configuration
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
