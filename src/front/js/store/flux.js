@@ -53,7 +53,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           } else if (resp.status === 200 || resp.status === 201) {
             sessionStorage.setItem("token", data.access_token);
             setStore({ token: data.access_token });
-            return { success: true, message: "Registration successful" };
+            return { success: true, message: data.message }; // Use the server's message
           } else {
             setStore({
               message: data.message || "An error occurred during registration",
@@ -97,8 +97,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const data = await resp.json();
           console.log(" This came from the backend", data);
-          sessionStorage.setItem("token", data.access_token);
-          setStore({ token: data.access_token });
+          sessionStorage.setItem("token", data.token); // Changed from data.access_token to data.token
+          setStore({ token: data.token }); // Changed from data.access_token to data.token
+          return data; // Added this line
         } catch (error) {
           console.log("Login Error", error);
         }

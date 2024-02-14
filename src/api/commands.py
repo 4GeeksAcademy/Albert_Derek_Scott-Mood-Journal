@@ -33,7 +33,7 @@ def setup_commands(app):
 
 
     @app.cli.command("import-moods")
-    @click.argument('./src/data/moodData.json')  # Path to the JSON file as an argument
+    @click.argument('file_path')  # Valid argument name
     def import_moods(file_path):
         """Import moods from a JSON file."""
         with open(file_path, 'rt') as json_file:

@@ -1,13 +1,24 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/register.css";
 
 export const Register = () => {
   const { actions } = useContext(Context);
+  const navigate = useNavigate();
 
   const handleRegister = async (email, password) => {
-    await actions.register(email, password);
-    // Redirect or perform any other action after registration
+    try {
+      const result = await actions.register(email, password);
+      if (result && result.message === "Registered successfully") {
+        console.log("Registration successful");
+        navigate("/login"); // Navigate to login page after successful registration
+      } else {
+        console.log("Registration failed");
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+    }
   };
 
   return (

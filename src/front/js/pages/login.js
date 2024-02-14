@@ -8,12 +8,15 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (email, password) => {
-    const result = await actions.login(email, password);
-    if (result.success) {
-      // Assuming login action returns an object with a success property
-      navigate("/home"); // Make sure this path matches your actual home path
-    } else {
-      // Handle login failure, e.g., set error state, show message, etc.
+    try {
+      const result = await actions.login(email, password);
+      if (result && result.message === "Login successful") {
+        navigate("/"); // Make sure this path matches your actual home path
+      } else {
+        console.log("Login failed");
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
     }
   };
 

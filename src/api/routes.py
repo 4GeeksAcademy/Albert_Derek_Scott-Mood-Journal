@@ -39,7 +39,7 @@ def login_user():
     user = Users.query.filter_by(email=data['email']).first()
     if user and check_password_hash(user.password_hash, data['password']):
         access_token = create_access_token(identity=user.id, expires_delta=timedelta(hours=24))
-        return jsonify({'token': access_token})
+        return jsonify({'message': 'Login successful', 'token': access_token}), 200
 
     return jsonify({'message': 'Could not verify', 'WWW-Authenticate': 'Basic realm="Login required!"'}), 401
 
