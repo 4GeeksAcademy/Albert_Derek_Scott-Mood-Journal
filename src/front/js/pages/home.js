@@ -7,6 +7,7 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
+		
 		<div className="container mt-5">
 			{/* Hero Section */}
 			<div className="row">
@@ -26,8 +27,8 @@ export const Home = () => {
 					<div className="card">
 						<img src="..." className="card-img-top" alt="..."/>
 						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<h5 className="card-title">Janet Smith</h5>
+							<p className="card-text">"This site is the most a fantastic part of my day."</p>
 						</div>
 					</div>
 				</div>
@@ -35,8 +36,8 @@ export const Home = () => {
 					<div className="card">
 						<img src="..." className="card-img-top" alt="..."/>
 						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<h5 className="card-title">Marko Guiterez</h5>
+							<p className="card-text">"Love the analytics to see where my well being has been at lately"</p>
 						</div>
 					</div>
 				</div>
@@ -44,8 +45,8 @@ export const Home = () => {
 					<div className="card">
 						<img src="..." className="card-img-top" alt="..."/>
 						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							<h5 className="card-title">Sally Brown</h5>
+							<p className="card-text">"Serenity Scribe has been very helpful to me. Being able to keep a digital journal in an easy form at is great, much better than my old pen and paper method"</p>
 						</div>
 					</div>
 				</div>
