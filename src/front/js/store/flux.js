@@ -53,7 +53,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           } else if (resp.status === 200 || resp.status === 201) {
             sessionStorage.setItem("token", data.access_token);
             setStore({ token: data.access_token });
-            return { success: true, message: data.message }; // Use the server's message
+            return { success: true, message: data.message };
           } else {
             setStore({
               message: data.message || "An error occurred during registration",

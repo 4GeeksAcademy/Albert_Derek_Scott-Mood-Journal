@@ -16,7 +16,7 @@ const LoginForm = () => {
     try {
       const result = await actions.login(email, password);
       if (result && result.message === "Login successful") {
-        navigate("/"); // Make sure this path matches your actual home path
+        navigate("/");
       } else {
         console.log("Login failed");
       }
@@ -51,7 +51,7 @@ const LoginForm = () => {
         </button>
       </div>
     </form>
-  ); // Add the missing closing curly brace here
+  );
 };
 
 export default LoginForm;
