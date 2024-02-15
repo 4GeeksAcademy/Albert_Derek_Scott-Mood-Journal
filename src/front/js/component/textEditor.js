@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Editor, EditorState } from "draft-js";
+import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css"; // Import the default Draft.css styles
 import "../../styles/Journal.css";
 
