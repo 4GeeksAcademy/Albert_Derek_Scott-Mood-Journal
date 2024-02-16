@@ -1,13 +1,15 @@
 import React from "react";
-import JournalListSideBar from "../component/journalListSideBar.js";
+// import JournalListSideBar from "../component/journalListSideBar.js";
+import JournalListSideBarTest from "../component/journalListSideBarTest.js";
 // import TextEditor from "../component/textEditor.js";
 import RichEditorExample from "../component/richEditorExample.js";
 
 const Journal = () => (
-  <div className="container-fluid">
+  <div className="journal-body container-fluid ">
     <div className="row">
-      <div className="col-md-3 vh-100 overflow-auto">
-        <JournalListSideBar />
+      <div className="side-bar vh100 overflow-auto">
+        {/* <JournalListSideBar /> */}
+        <JournalListSideBarTest />
       </div>
       <div className="col-md-9">
         <div className="editorContainer justify-content-center align-text-center">

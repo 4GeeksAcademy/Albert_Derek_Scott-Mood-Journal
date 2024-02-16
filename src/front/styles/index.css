@@ -4,3 +4,13 @@
 .hidden {
   display: none;
 }
+
+.side-bar {
+  flex: 0 0 auto;
+  width: 20%;
+}
+
+.side-bar-visible {
+  background-color: rgb(250, 202, 148);
+  height: 90vh;
+}

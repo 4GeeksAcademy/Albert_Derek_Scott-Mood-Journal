@@ -18,7 +18,11 @@ function JournalListSideBar() {
       </button>
 
       {/* Sidebar */}
-      <div className={`sidebar-sticky ${!isVisible ? "hidden" : ""}`}>
+      <div
+        className={`sidebar-sticky ${
+          !isVisible ? "hidden" : "side-bar-visible"
+        }`}
+      >
         <ul className="nav flex-column">
           <li className="nav-item">
             <a className="nav-link" href="#">

@@ -1,7 +1,15 @@
 /* Journal.css */
+.body {
+  background: linear-gradient(
+    122deg,
+    rgb(159, 87, 14) 0%,
+    rgb(139, 102, 241) 100%
+  );
+}
+
 .text-editor-container {
   border: 2px solid #8c746a; /* Darker border for a vintage look */
-  background-color: #fbf0e4; /* Light paper-like background */
+  background-color: #f5f2d8; /* Light paper-like background */
   padding: 20px;
   min-height: 400px;
   max-width: 600px; /* To mimic the size of a physical journal */
