@@ -9,7 +9,7 @@ import "../styles/index.css";
 import Layout from "./layout";
 
 //import background image
-import backgroundImage from "/workspaces/Albert_Derek_Scott-Mood-Journal/src/front/img/serenity-scribe-logo.webp";
+ import backgroundImage from "/src/front/img/gradient-background.jpg";
 
 //set background image for the entire page
 document.body.style.backgroundImage = `url(${backgroundImage})`;
