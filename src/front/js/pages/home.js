@@ -7,7 +7,7 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="content-wrapper">
+    <div className="content-wrapper h-100">
     <div className="container mt-5">
       {/* Hero Section */}
       <div className="row">
@@ -54,7 +54,7 @@ export const Home = () => {
               <h5 className="card-title">Sally Brown</h5>
               <p className="card-text">
                 "Serenity Scribe has been very helpful to me. Being able to keep
-                a digital journal in an easy form at is great, much better than
+                a digital journal in an easy format is great, much better than
                 my old pen and paper method"
               </p>
             </div>

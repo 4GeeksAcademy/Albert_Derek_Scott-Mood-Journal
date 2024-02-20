@@ -15,8 +15,8 @@ body {
     flex: 1 0 auto;
   }
   
-  .footer {
-    flex-shrink: 0;
-    background-color: black;
-    text-decoration: white;
+  footer {
+    /* flex-shrink: 0; */
+    /* background-color: black; */
+    text-decoration-color: white;
   }
