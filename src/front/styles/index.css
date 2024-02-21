@@ -1,6 +1,11 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
-.content-wrapper{
-    height:100%;
+//from alberts branch
+.custom-sidebar .pro-sidebar {
+  background-color: #f4f5f7; /* Example background color */
+}
+//from alberts branch
+.custom-sidebar .pro-menu-item {
+  color: #333; /* Example text color */
+}
+.content-wrapper {
+  height: 100%;
 }

@@ -1,0 +1,62 @@
+/* Journal.css */
+.body {
+  background: linear-gradient(
+    122deg,
+    rgb(159, 87, 14) 0%,
+    rgb(139, 102, 241) 100%
+  );
+}
+
+.text-editor-container {
+  border: 2px solid #8c746a; /* Darker border for a vintage look */
+  background-color: #f5f2d8; /* Light paper-like background */
+  padding: 20px;
+  min-height: 400px;
+  max-width: 600px; /* To mimic the size of a physical journal */
+  margin: auto; /* Center the editor on the page */
+  font-family: "Times New Roman", Times, serif; /* Classic font for journal vibe */
+  color: #5e463f; /* Dark ink color */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+.editor {
+  padding: 10px;
+  min-height: 350px; /* Ensure there's enough space for text */
+  font-size: 18px; /* Slightly larger font for readability */
+}
+
+/* Optional: Add some "handwritten" font for headers or special sections */
+@import url("https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap");
+
+.header {
+  font-family: "Homemade Apple", cursive;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Further enhancements for Draft.js specific classes */
+.DraftEditor-root {
+  background-color: #fbf0e4; /* Ensure Draft.js editor matches the journal style */
+}
+
+.DraftEditor-editorContainer,
+.public-DraftEditor-content {
+  line-height: 1.5em; /* Ensure this matches the background-size for alignment */
+  min-height: 350px; /* Minimum height for the text area */
+}
+
+.public-DraftEditor-content {
+  background-image: linear-gradient(transparent 95%, #5e463f 95%);
+  background-size: 100% 1.5em; /* This controls the line spacing */
+  background-position: 0 10px; /* Adjust this to align the start of the lines with your text */
+  padding: 0 10px;
+  line-height: 1.5em; /* This should match the background-size for consistent line spacing */
+  font-size: 18px; /* Adjust if necessary to help with alignment */
+  min-height: 350px;
+}
+
+/* Style the placeholder text to match the journal theme */
+.public-DraftEditorPlaceholder-root {
+  color: #c4a484; /* Lighter color for placeholder text */
+  font-style: italic; /* Italicize placeholder for a more elegant look */
+}
