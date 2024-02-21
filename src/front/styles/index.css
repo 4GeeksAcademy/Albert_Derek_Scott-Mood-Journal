@@ -1,16 +1,7 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
-.hidden {
-  display: none;
+.custom-sidebar .pro-sidebar {
+  background-color: #f4f5f7; /* Example background color */
 }
 
-.side-bar {
-  flex: 0 0 auto;
-  width: 20%;
-}
-
-.side-bar-visible {
-  background-color: rgb(250, 202, 148);
-  height: 90vh;
+.custom-sidebar .pro-menu-item {
+  color: #333; /* Example text color */
 }

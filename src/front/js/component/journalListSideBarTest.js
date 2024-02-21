@@ -1,36 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../../styles/index.css"; // Ensure your CSS file is imported
-import SlidingPanel from "react-sliding-side-panel";
+import React from "react";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Link } from "react-router-dom";
+
+import "../../styles/index.css"; // Adjust this path to match your project structure
 
 function JournalListSideBarTest() {
-  const [openPanel, setOpenPanel] = useState(false);
-  const panelRef = useRef();
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (panelRef.current && !panelRef.current.contains(event.target)) {
-        setOpenPanel(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
-    <div>
-      <button onClick={() => setOpenPanel(true)}>Open</button>
-      <SlidingPanel type={"left"} isOpen={openPanel} size={30}>
-        <div ref={panelRef}>
-          <div className={openPanel ? "side-bar-visible" : ""}>
-            My Panel Content
-            <button onClick={() => setOpenPanel(false)}>Close</button>
-          </div>
+    <Sidebar>
+      <Menu
+        menuItemStyles={{
+          button: {
+            [`&.active`]: {
+              backgroundColor: "#13395e",
+              color: "#b6c8d9",
+            },
+          },
+        }}
+      >
+        <MenuItem component={<Link to="/journal" />}>Today </MenuItem>
+        <div className="sticky-btn">
+          <MenuItem component={<Link to="/journal" />}> Calendar </MenuItem>
         </div>
-      </SlidingPanel>
-    </div>
+
+        <MenuItem component={<Link to="/journal" />}> Calendar </MenuItem>
+        <MenuItem component={<Link to="/journal" />}> E-commerce </MenuItem>
+      </Menu>
+    </Sidebar>
   );
 }
 

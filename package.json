@@ -78,7 +78,9 @@
 		"react": "^16.14.0",
 		"react-dom": "^16.14.0",
 		"react-polyfills": "0.0.1",
+		"react-pro-sidebar": "^1.1.0",
 		"react-router-dom": "^6.3.0",
-		"react-sliding-side-panel": "^2.0.3"
+		"react-sliding-side-panel": "^2.0.3",
+		"styled-components": "^6.1.8"
 	}
 }

@@ -1,5 +1,3 @@
-/* RichEditor.css */
-
 .RichEditor-root {
   background: #ffffff;
   border: 1px solid #ddd;
@@ -14,7 +12,15 @@
   font-size: 16px;
   margin-top: 10px;
   min-height: 400px;
+  width: auto;
   padding: 15px;
+  /* College-ruled lines simulation */
+  background-image: linear-gradient(
+    to bottom,
+    #f8f8f8 0.05em,
+    transparent 0.05em
+  );
+  background-size: 100% 0.28em; /* Line spacing - closer to 7.1mm in height */
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {

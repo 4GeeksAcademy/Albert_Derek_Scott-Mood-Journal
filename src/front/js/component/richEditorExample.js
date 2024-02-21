@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Editor, EditorState, RichUtils } from "draft-js";
+import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
 import "draft-js/dist/Draft.css"; // Make sure to import the Draft.css
 import "../../styles/richEditorExample.css";
 
@@ -103,7 +103,7 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
 };
 
 // Main editor component
-const RichEditorExample = () => {
+const RichEditorExample = (props) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const editorRef = useRef(null);
 
@@ -136,6 +136,15 @@ const RichEditorExample = () => {
     }
   }
 
+  // Modified onChange handler to include content propagation to parent
+  const onChange = (newEditorState) => {
+    setEditorState(newEditorState);
+    // Convert the current content to a raw JS object
+    const contentRaw = convertToRaw(newEditorState.getCurrentContent());
+    // Assuming you want to pass the raw content up as a string
+    props.onContentChange(JSON.stringify(contentRaw));
+  };
+
   return (
     <div className="RichEditor-root">
       <BlockStyleControls
@@ -152,7 +161,7 @@ const RichEditorExample = () => {
           customStyleMap={styleMap}
           editorState={editorState}
           handleKeyCommand={handleKeyCommand}
-          onChange={setEditorState}
+          onChange={onChange}
           placeholder="Tell a story..."
           ref={editorRef}
           spellCheck={true}
