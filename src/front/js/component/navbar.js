@@ -1,14 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../img/SerenityScribe.png";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    history.push("/login");
+    navigate("/login");
     window.location.href = "/login";
   };
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="/">
