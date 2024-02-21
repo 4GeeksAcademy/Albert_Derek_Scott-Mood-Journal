@@ -26,7 +26,7 @@ const Layout = () => {
     return <BackendURL />;
 
   return (
-    <div>
+    <div className="h-100">
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />

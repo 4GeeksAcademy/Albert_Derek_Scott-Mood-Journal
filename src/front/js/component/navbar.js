@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import Logo from "../../img/SerenityScribe.png";
 
 export const Navbar = () => {
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    history.push("/login");
+    window.location.href = "/login";
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="/">
@@ -19,19 +25,48 @@ export const Navbar = () => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ms-auto">
-          <li className="nav-item">
-            <a className="nav-link" href="/register/">
-              Register
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/login/">
-              Login
-            </a>
-          </li>
-        </ul>
+      <div className="ms-auto">
+        {!sessionStorage.getItem("token") ? (
+          <>
+            <Link to="/login">
+              <button className="btn btn-primary">Login</button>
+            </Link>
+            <Link to="/register">
+              <button className="btn btn-secondary">Register</button>
+            </Link>
+          </>
+        ) : (
+          <div className="nav-item dropdown">
+            <button
+              className="btn btn-primary dropdown-toggle"
+              id="navbarDropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Profile
+            </button>
+            <ul
+              className="dropdown-menu"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              <li>
+                <Link className="dropdown-item" to="/journal">
+                  Journal
+                </Link>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="/settings">
+                  Settings
+                </Link>
+              </li>
+              <li>
+                <button className="dropdown-item" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
