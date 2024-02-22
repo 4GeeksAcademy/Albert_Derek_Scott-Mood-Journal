@@ -37,8 +37,8 @@ export default function Profile() {
                       <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div className="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
-                          <p className="mb-0">@johnny.s</p>
-                          <div className="text-muted"><small>Last seen 2 hours ago</small></div>
+                          <p className="mb-0">jonny@journal.com</p>
+                          <div className="text-muted"><small>Visited 2 hours ago</small></div>
                         </div>
                       </div>
                     </div>

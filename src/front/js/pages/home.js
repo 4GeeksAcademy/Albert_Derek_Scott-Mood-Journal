@@ -13,7 +13,7 @@ export const Home = () => {
       <div className="row">
         <div className="col-12">
           <div className="text-center">
-            <h1>HERO SECTION</h1>
+          <h1 className="blue-text"><b>SERINITY SCRIBE</b></h1>
             <p>
               <img src={ssLogo} className="img-fluid" alt="Responsive image" />
             </p>
