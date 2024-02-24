@@ -56,7 +56,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link className="dropdown-item" to="/settings">
+                <Link className="dropdown-item" to="/profile">
                   Settings
                 </Link>
               </li>
