@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      userId: null,
       token: null,
       message: null,
       demo: [
@@ -15,6 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           initial: "white",
         },
       ],
+      user:null,
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -27,6 +29,27 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (token && token != "" && token != undefined) {
           setStore({ token: token });
         }
+      },
+      getUser: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/user/profile", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getStore().token}`,
+            },
+          });
+          const data = await resp.json();
+          if (resp.status === 200) {
+            setStore({ userId: data.id });
+          } else {
+            setStore({ userId: null });
+          }
+        } catch (error) {
+          console.log("Error getting user", error);
+          setStore({ userId: null });
+        }
+        console.log("User ID", getStore().userId);
       },
 
       register: async (email, password) => {
