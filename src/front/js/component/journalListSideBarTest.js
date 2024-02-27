@@ -1,32 +1,42 @@
-import React from "react";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+import React, { useContext, useEffect, useState } from "react";
+import { Sidebar, Menu } from "react-pro-sidebar";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-import "../../styles/index.css"; // Adjust this path to match your project structure
+import "../../styles/index.css"; // Ensure this path is correct
 
-function JournalListSideBarTest() {
+function JournalListSideBar() {
+  const { actions } = useContext(Context);
+  const [journals, setJournals] = useState([]);
+
+  useEffect(() => {
+    actions
+      .getJournal()
+      .then((data) => {
+        // Validate if data is an array before setting the state
+        if (Array.isArray(data)) {
+          setJournals(data);
+        } else {
+          // Log an error or handle this case appropriately
+          console.error("Fetched data is not an array:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch journals:", error);
+      });
+  }, [actions]);
+
   return (
     <Sidebar>
-      <Menu
-        menuItemStyles={{
-          button: {
-            [`&.active`]: {
-              backgroundColor: "#13395e",
-              color: "#b6c8d9",
-            },
-          },
-        }}
-      >
-        <MenuItem component={<Link to="/journal" />}>Today </MenuItem>
-        <div className="sticky-btn">
-          <MenuItem component={<Link to="/journal" />}> Calendar </MenuItem>
-        </div>
-
-        <MenuItem component={<Link to="/journal" />}> Calendar </MenuItem>
-        <MenuItem component={<Link to="/journal" />}> E-commerce </MenuItem>
+      <Menu>
+        {journals.map((journal) => (
+          <Link key={journal.id} to={`/journal/${journal.id}`}>
+            <div>{new Date(journal.created_at).toLocaleDateString()}</div>
+          </Link>
+        ))}
       </Menu>
     </Sidebar>
   );
 }
 
-export default JournalListSideBarTest;
+export default JournalListSideBar;
