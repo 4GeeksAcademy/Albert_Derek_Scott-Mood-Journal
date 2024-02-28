@@ -15,8 +15,9 @@ const LoginForm = () => {
 
     try {
       const result = await actions.login(email, password);
+      const userID = await actions.getUser();
       if (result && result.message === "Login successful") {
-        navigate("/");
+        navigate("/journal");
       } else {
         console.log("Login failed");
       }

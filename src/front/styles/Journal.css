@@ -7,6 +7,14 @@
   );
 }
 
+.custom-sidebar .pro-sidebar {
+  background-color: #f4f5f7; /* Example background color */
+}
+//from alberts branch
+.custom-sidebar .pro-menu-item {
+  color: #333; /* Example text color */
+}
+
 .text-editor-container {
   border: 2px solid #8c746a; /* Darker border for a vintage look */
   background-color: #f5f2d8; /* Light paper-like background */
