@@ -20,3 +20,6 @@ body {
     /* background-color: black; */
     text-decoration-color: white;
   }
+  .blue-text {
+    color: purple;
+  }
