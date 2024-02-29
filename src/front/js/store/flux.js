@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       userId: null,
       token: null,
-      journal_entries: [],
+      journals: [],
       user: null,
     },
     actions: {
