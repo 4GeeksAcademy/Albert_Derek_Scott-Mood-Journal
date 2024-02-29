@@ -8,10 +8,11 @@ from datetime import timedelta
 from api.models import db, Users, JournalEntry, Mood
 from flask_cors import CORS
 import hashlib
-#from api.exceptions import APIException
+# from api.exceptions import APIException
 
 api = Blueprint('api', __name__)
 CORS(api)
+
 
 @api.route('/register', methods=['POST'])
 def register_user():
@@ -23,12 +24,14 @@ def register_user():
     if Users.query.filter_by(email=data['email']).first():
         return jsonify({'message': 'User already exists'}), 409
 
-    hashed_password = generate_password_hash(data['password'], method='pbkdf2:sha256')
+    hashed_password = generate_password_hash(
+        data['password'], method='pbkdf2:sha256')
     new_user = Users(email=data['email'], password_hash=hashed_password)
     db.session.add(new_user)
     db.session.commit()
 
     return jsonify({'message': 'Registered successfully'}), 201
+
 
 @api.route('/login', methods=['POST'])
 def login_user():
@@ -38,10 +41,12 @@ def login_user():
 
     user = Users.query.filter_by(email=data['email']).first()
     if user and check_password_hash(user.password_hash, data['password']):
-        access_token = create_access_token(identity=user.id, expires_delta=timedelta(hours=24))
+        access_token = create_access_token(
+            identity=user.id, expires_delta=timedelta(hours=24))
         return jsonify({'message': 'Login successful', 'token': access_token}), 200
 
     return jsonify({'message': 'Could not verify', 'WWW-Authenticate': 'Basic realm="Login required!"'}), 401
+
 
 @api.route('/journal', methods=['POST'])
 @jwt_required()
@@ -51,11 +56,13 @@ def add_journal_entry():
     if not data or not data.get('content') or not data.get('mood_id'):
         return jsonify({'message': 'Missing journal entry data'}), 400
 
-    new_entry = JournalEntry(user_id=current_user_id, content=data['content'], mood_id=data['mood_id'])
+    new_entry = JournalEntry(user_id=current_user_id,
+                             content=data['content'], mood_id=data['mood_id'])
     db.session.add(new_entry)
     db.session.commit()
 
     return jsonify({'message': 'Journal entry created successfully'}), 201
+
 
 @api.route('/journal/<int:user_id>', methods=['GET'])
 @jwt_required()
@@ -69,12 +76,14 @@ def get_journal_entries(user_id):
 
     return jsonify({'journal_entries': output})
 
+
 @api.route('/moods', methods=['GET'])
 def get_moods():
     all_moods = Mood.query.all()
     output = [mood.serialize() for mood in all_moods]
 
     return jsonify({'moods': output})
+
 
 @api.route('/hello', methods=['GET'])
 @jwt_required()
@@ -85,6 +94,7 @@ def handle_hello():
 # Removed duplicate and conflicting endpoints for user creation and login.
 # Ensure all endpoints use consistent error handling and response formatting.
 
+
 @api.route('/user/<int:id>', methods=["GET"])
 def get_user(id):
     user = Users.query.get(id)
@@ -92,13 +102,12 @@ def get_user(id):
         return jsonify({'message': 'User not found'}), 404
     return jsonify(user.serialize()), 200
 
+
 @api.route('/user', methods=["GET"])
 def get_all_users():
     users = Users.query.all()
     all_users = [user.serialize() for user in users]
     return jsonify(all_users), 200
-
-
 
 
 @api.route('/user/profile', methods=['GET'])
@@ -127,10 +136,12 @@ def update_user(id):
     if 'email' in data:
         user.email = data['email']
     if 'password' in data:
-        user.password_hash = generate_password_hash(data['password'], method='pbkdf2:sha256')
+        user.password_hash = generate_password_hash(
+            data['password'], method='pbkdf2:sha256')
 
     db.session.commit()
     return jsonify(user.serialize()), 200
+
 
 @api.route('/user/<int:id>', methods=['DELETE'])
 @jwt_required()
@@ -146,6 +157,7 @@ def delete_user(id):
     db.session.delete(user)
     db.session.commit()
     return jsonify({'message': 'User deleted successfully'}), 200
+
 
 @api.route('/private', methods=['GET'])
 @jwt_required()

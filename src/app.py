@@ -44,23 +44,28 @@ setup_commands(app)
 app.register_blueprint(api_blueprint, url_prefix='/api')
 
 # Error handling
+
+
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
 # Sitemap and static file serving
+
+
 @app.route('/')
 def sitemap():
     if ENV == "development":
         return generate_sitemap(app)
     return app.send_static_file('index.html')
 
+
 @app.route('/<path:path>', methods=['GET'])
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
+
 
 # Main entry point
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=ENV == "development")
-

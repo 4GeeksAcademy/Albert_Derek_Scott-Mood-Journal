@@ -3,20 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       userId: null,
       token: null,
-      message: null,
-      demo: [
-        {
-          title: "FIRST",
-          background: "white",
-          initial: "white",
-        },
-        {
-          title: "SECOND",
-          background: "white",
-          initial: "white",
-        },
-      ],
-      user:null,
+      journals: [],
+      user: null,
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -31,47 +19,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       getUser: async () => {
-        try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/user/profile", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getStore().token}`,
-            },
-          });
-          const data = await resp.json();
-          if (resp.status === 200) {
-            setStore({ userId: data.id });
-          } else {
-            setStore({ userId: null });
-          }
-        } catch (error) {
-          console.log("Error getting user", error);
+        const resp = await fetch(process.env.BACKEND_URL + "/api/user/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getStore().token}`,
+          },
+        });
+        const data = await resp.json();
+        if (resp.status === 200) {
+          setStore({ userId: data.id });
+        } else {
           setStore({ userId: null });
         }
         console.log("User ID", getStore().userId);
       },
 
       getUser: async () => {
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/user/profile",
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${getStore().token}`,
-              },
-            }
-          );
-          const data = await resp.json();
-          if (resp.status === 200) {
-            setStore({ userId: data.id });
-          } else {
-            setStore({ userId: null });
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/user/profile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getStore().token}`,
+            },
           }
-        } catch (error) {
-          console.log("Error getting user", error);
+        );
+        const data = await resp.json();
+        if (resp.status === 200) {
+          setStore({ userId: data.id });
+        } else {
           setStore({ userId: null });
         }
         console.log("User ID", getStore().userId);
@@ -85,34 +63,29 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
           }),
         };
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/register",
-            opts
-          );
-          const data = await resp.json();
-          if (resp.status === 409) {
-            setStore({ message: "Email or username already in use" });
-            return {
-              success: false,
-              message: "Email or username already in use",
-            };
-          } else if (resp.status === 200 || resp.status === 201) {
-            sessionStorage.setItem("token", data.access_token);
-            setStore({ token: data.access_token });
-            return { success: true, message: data.message };
-          } else {
-            setStore({
-              message: data.message || "An error occurred during registration",
-            });
-            return {
-              success: false,
-              message: data.message || "An error occurred during registration",
-            };
-          }
-        } catch (error) {
-          console.log("Registration Error", error);
-          return { success: false, message: "An unexpected error occurred" };
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/register",
+          opts
+        );
+        const data = await resp.json();
+        if (resp.status === 409) {
+          setStore({ message: "Email or username already in use" });
+          return {
+            success: false,
+            message: "Email or username already in use",
+          };
+        } else if (resp.status === 200 || resp.status === 201) {
+          sessionStorage.setItem("token", data.access_token);
+          setStore({ token: data.access_token });
+          return { success: true, message: data.message };
+        } else {
+          setStore({
+            message: data.message || "An error occurred during registration",
+          });
+          return {
+            success: false,
+            message: data.message || "An error occurred during registration",
+          };
         }
       },
 
@@ -131,29 +104,24 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
           }),
         };
-
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/login",
-            opts
-          );
-          if (resp.status !== 200) {
-            alert("Login Failed");
-            return false;
-          }
-
-          const data = await resp.json();
-          console.log(" This came from the backend", data);
-          sessionStorage.setItem("token", data.token);
-          setStore({ token: data.token });
-
-          // Call getUser to set the userId in the store
-          await getActions().getUser();
-
-          return data;
-        } catch (error) {
-          console.log("Login Error", error);
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/login",
+          opts
+        );
+        if (resp.status !== 200) {
+          alert("Login Failed");
+          return false;
         }
+
+        const data = await resp.json();
+        console.log(" This came from the backend", data);
+        sessionStorage.setItem("token", data.token);
+        setStore({ token: data.token });
+
+        // Call getUser to set the userId in the store
+        await getActions().getUser();
+
+        return data;
       },
 
       submitJournal: async (journal) => {
@@ -166,20 +134,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
           body: JSON.stringify(journal),
         };
-        try {
-          const resp = await fetch(
-            process.env.BACKEND_URL + "/api/journal",
-            opts
-          );
-          const data = await resp.json();
-          if (resp.status === 200 || resp.status === 201) {
-            return { success: true, message: data.message };
-          } else {
-            return { success: false, message: data.message };
-          }
-        } catch (error) {
-          console.log("Journal Submission Error", error);
-          return { success: false, message: "An unexpected error occurred" };
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/journal",
+          opts
+        );
+        const data = await resp.json();
+        if (resp.status === 200 || resp.status === 201) {
+          return { success: true, message: data.message };
+        } else {
+          return { success: false, message: data.message };
         }
       },
 
@@ -197,18 +160,13 @@ const getState = ({ getStore, getActions, setStore }) => {
             Authorization: "Bearer " + token,
           },
         };
-        try {
-          const url = `${process.env.BACKEND_URL}api/journal/${userId}`; // Use userId in the URL
-          const resp = await fetch(url, opts);
 
-          if (resp.ok) {
-            const data = await resp.json();
-            return Array.isArray(data) ? data : [data];
-          } else {
-            console.error("Error fetching journals:", resp.statusText);
-          }
-        } catch (error) {
-          console.error("Error fetching journals:", error);
+        const url = `${process.env.BACKEND_URL}/api/journal/${userId}`; // Use userId in the URL
+        const resp = await fetch(url, opts);
+
+        if (resp.ok) {
+          const data = await resp.json();
+          setStore({ journals: data.journal_entries });
         }
       },
     },
