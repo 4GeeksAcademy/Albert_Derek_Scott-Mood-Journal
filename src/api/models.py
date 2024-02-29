@@ -34,7 +34,11 @@ class JournalEntry(db.Model):
     content = db.Column(db.Text, nullable=False)
     mood_id = db.Column(db.Integer, db.ForeignKey('moods.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime)
+    updated_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+    )
 
     def serialize(self):
         return {
