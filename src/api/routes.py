@@ -163,3 +163,24 @@ def delete_user(id):
 @jwt_required()
 def get_private():
     return jsonify({'message': 'This is a private endpoint. You need to be logged in to see it'}), 200
+
+
+@api.route('/updateProfile', methods=['PUT'])
+@jwt_required()
+def update_profile():
+    current_user_id = get_jwt_identity()
+    user = Users.query.get(current_user_id)
+    if user is None:
+        return jsonify({'message': 'User not found'}), 404  
+    data = request.get_json()  
+    if 'fullName' in data:
+        user.full_name = data['fullName'] 
+       
+        if Users.query.filter_by(email=data['email']).first():
+            return jsonify({'message': 'Email already in use'}), 409
+        user.email = data['email']
+    if 'newPassword' in data and data['newPassword']:
+        user.password_hash = generate_password_hash(data['newPassword'], method='pbkdf2:sha256') 
+
+    db.session.commit()
+    return jsonify({'message': 'Profile updated successfully'}), 200
