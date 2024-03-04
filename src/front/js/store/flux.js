@@ -19,23 +19,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       getUser: async () => {
-        const resp = await fetch(process.env.BACKEND_URL + "/api/user/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${getStore().token}`,
-          },
-        });
-        const data = await resp.json();
-        if (resp.status === 200) {
-          setStore({ userId: data.id });
-        } else {
-          setStore({ userId: null });
-        }
-        console.log("User ID", getStore().userId);
-      },
-
-      getUser: async () => {
         const resp = await fetch(
           process.env.BACKEND_URL + "/api/user/profile",
           {
@@ -104,10 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
           }),
         };
-        const resp = await fetch(
-          process.env.BACKEND_URL + "/api/login",
-          opts
-        );
+        const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
         if (resp.status !== 200) {
           alert("Login Failed");
           return false;
