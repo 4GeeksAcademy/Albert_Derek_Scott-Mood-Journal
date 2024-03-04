@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
+
 
 export default function Profile() {
   const [fullName, setFullName] = useState("");
@@ -8,6 +9,10 @@ export default function Profile() {
   const [showPhotoModal, setShowPhotoModal] = useState(false);
 
   const { store, actions } = useContext(Context);
+
+  // useEffect(() => {
+  //   actions.getUser();
+  // }, []);
   const handleSaveChanges = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -16,7 +21,7 @@ export default function Profile() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-            Authorization: `Bearer ${store.token}`,
+          Authorization: `Bearer ${store.token}`,
         },
         body: JSON.stringify({ fullName, email, newPassword }),
       }
@@ -88,7 +93,7 @@ export default function Profile() {
                       <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div className="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
-                            John Smith
+                            
                           </h4>
                           <p className="mb-0">jonny@journal.com</p>
                           <div className="text-muted">

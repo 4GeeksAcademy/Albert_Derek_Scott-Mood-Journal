@@ -35,25 +35,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("User ID", getStore().userId);
       },
 
-      getUser: async () => {
-        const resp = await fetch(
-          process.env.BACKEND_URL + "/api/user/profile",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getStore().token}`,
-            },
-          }
-        );
-        const data = await resp.json();
-        if (resp.status === 200) {
-          setStore({ userId: data.id });
-        } else {
-          setStore({ userId: null });
-        }
-        console.log("User ID", getStore().userId);
-      },
+      // getUser: async () => {
+      //   const resp = await fetch(
+      //     process.env.BACKEND_URL + "/api/user/profile",
+      //     {
+      //       method: "GET",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         Authorization: `Bearer ${getStore().token}`,
+      //       },
+      //     }
+      //   );
+      //   const data = await resp.json();
+      //   if (resp.status === 200) {
+      //     setStore({ userId: data.id });
+      //   } else {
+      //     setStore({ userId: null });
+      //   }
+      //   console.log("User ID", getStore().userId);
+      // },
       register: async (email, password) => {
         const opts = {
           method: "POST",
