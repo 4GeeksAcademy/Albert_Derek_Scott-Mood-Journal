@@ -19,27 +19,48 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       getUser: async () => {
-        const resp = await fetch(process.env.BACKEND_URL + "/api/user/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        });
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/user/profile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          }
+        );
         const data = await resp.json();
         if (resp.status === 200) {
-          console.log(data)
+          console.log(data);
           setStore({ user: data.user });
           setStore({ userid: data.user.id });
-          return true
+          return true;
         } else {
           setStore({ userId: null });
-          return false
+          return false;
         }
         console.log("User ID", getStore().userId);
       },
 
-
+      getUser: async () => {
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/user/profile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getStore().token}`,
+            },
+          }
+        );
+        const data = await resp.json();
+        if (resp.status === 200) {
+          setStore({ userId: data.id });
+        } else {
+          setStore({ userId: null });
+        }
+        console.log("User ID", getStore().userId);
+      },
       register: async (email, password) => {
         const opts = {
           method: "POST",
@@ -90,10 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
           }),
         };
-        const resp = await fetch(
-          process.env.BACKEND_URL + "/api/login",
-          opts
-        );
+        const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
         if (resp.status !== 200) {
           alert("Login Failed");
           return false;

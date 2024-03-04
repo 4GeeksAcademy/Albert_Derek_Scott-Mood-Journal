@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const MoodSelector = ({ onMoodChange, moods }) => {
+const MoodSelector = ({ onMoodChange, moods, initialContent }) => {
   // Accept onMoodChange as a prop
   // State to keep track of the selected mood
   const [selectedMoodId, setSelectedMoodId] = useState(null);
