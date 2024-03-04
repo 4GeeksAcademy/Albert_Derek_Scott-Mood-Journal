@@ -5,6 +5,10 @@ import Logo from "../../img/SerenityScribe.png";
 export const Navbar = () => {
   const navigate = useNavigate();
 
+const fullName = sessionStorage.getItem("full_name")
+
+
+
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     navigate("/login");
@@ -44,7 +48,7 @@ export const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Profile
+              {fullName ? fullName : 'Profile'}
             </button>
             <ul
               className="dropdown-menu"
