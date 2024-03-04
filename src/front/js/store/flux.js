@@ -23,14 +23,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${getStore().token}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         });
         const data = await resp.json();
         if (resp.status === 200) {
-          setStore({ userId: data.id });
+          console.log(data)
+          setStore({ user: data.user });
+          setStore({ userid: data.user.id });
+          return true
         } else {
           setStore({ userId: null });
+          return false
         }
         console.log("User ID", getStore().userId);
       },

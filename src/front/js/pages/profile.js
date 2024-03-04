@@ -10,9 +10,13 @@ export default function Profile() {
 
   const { store, actions } = useContext(Context);
 
-  // useEffect(() => {
-  //   actions.getUser();
-  // }, []);
+  useEffect(async () => {
+    let result = await actions.getUser();
+    if (result){
+      setEmail(store.user.email)
+      setFullName(store.user.full_name)
+    }
+  }, []);
   const handleSaveChanges = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -21,7 +25,7 @@ export default function Profile() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${store.token}`,
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
         body: JSON.stringify({ fullName, email, newPassword }),
       }
@@ -29,7 +33,7 @@ export default function Profile() {
 
     if (response.ok) {
       alert("Profile updated successfully!");
-      console.log(fullName, email, newPassword);
+      console.log(response.json());
       setFullName("");
       setEmail("");
       setNewPassword("");
@@ -93,7 +97,7 @@ export default function Profile() {
                       <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div className="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
-                            
+                            {store.user?.full_name}
                           </h4>
                           <p className="mb-0">jonny@journal.com</p>
                           <div className="text-muted">

@@ -118,7 +118,7 @@ def get_user_profile():
     if user is None:
         return jsonify({'message': 'User not found'}), 404
 
-    return jsonify(user.serialize()), 200
+    return jsonify({"message": "Here's your user information", "user":user.serialize()}), 200
 
 
 @api.route('/user/<int:id>', methods=['PUT'])
@@ -173,14 +173,31 @@ def update_profile():
     if user is None:
         return jsonify({'message': 'User not found'}), 404  
     data = request.get_json()  
-    if 'fullName' in data:
-        user.full_name = data['fullName'] 
-       
-        if Users.query.filter_by(email=data['email']).first():
-            return jsonify({'message': 'Email already in use'}), 409
+    response_body = {"full_name_message":"","email_message":"", "password_message":""}
+    if 'fullName' in data and data["fullName"] != user.full_name:
+        user.full_name = data['fullName']
+        response_body['full_name_message']= 'Name successfully changed'
+    else:
+        response_body['email_message']= 'fullName field not sent'
+    if Users.query.filter_by(email=data['email']).first():
+           response_body['email_message']= 'Email already in use'
+    elif 'email' in data:
         user.email = data['email']
-    if 'newPassword' in data and data['newPassword']:
+        response_body['email_message']= 'email successfully changed'
+    else:
+        response_body['email_message']= 'email field not sent'
+    if 'newPassword' in data and user.password_hash != generate_password_hash(data['newPassword'], method='pbkdf2:sha256') :
         user.password_hash = generate_password_hash(data['newPassword'], method='pbkdf2:sha256') 
-
+        response_body['password_message']= 'password successfully changed'
+    else: 
+        response_body['password_message']= 'no password changes'
     db.session.commit()
-    return jsonify({'message': 'Profile updated successfully'}), 200
+    return jsonify(response_body), 200
+
+
+
+
+
+
+
+
