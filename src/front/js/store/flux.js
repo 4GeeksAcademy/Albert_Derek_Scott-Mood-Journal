@@ -144,7 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         };
 
-        const url = `${process.env.BACKEND_URL}/api/journal/${userId}`; // Use userId in the URL
+        const url = `${process.env.BACKEND_URL}/api/journal/${store.user.id}`; // Use userId in the URL
         const resp = await fetch(url, opts);
 
         if (resp.ok) {
