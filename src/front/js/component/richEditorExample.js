@@ -1,7 +1,13 @@
-import React, { useState, useRef } from "react";
-import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
-import "draft-js/dist/Draft.css"; // Make sure to import the Draft.css
-import "../../styles/richEditorExample.css";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  convertFromRaw,
+} from "draft-js";
+import "draft-js/dist/Draft.css"; // Make sure to import Draft.css
+import "../../styles/richEditorExample.css"; // Adjust the path as necessary
 
 // Custom styles for blocks
 const styleMap = {
@@ -103,8 +109,14 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
 };
 
 // Main editor component
-const RichEditorExample = (props) => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+const RichEditorExample = ({ onContentChange, initialContent }) => {
+  const [editorState, setEditorState] = useState(() => {
+    if (initialContent) {
+      const content = convertFromRaw(JSON.parse(initialContent));
+      return EditorState.createWithContent(content);
+    }
+    return EditorState.createEmpty();
+  });
   const editorRef = useRef(null);
 
   const focusEditor = () => {
@@ -128,6 +140,19 @@ const RichEditorExample = (props) => {
     setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle));
   };
 
+  useEffect(() => {
+    if (initialContent) {
+      const content = convertFromRaw(JSON.parse(initialContent));
+      setEditorState(EditorState.createWithContent(content));
+    }
+  }, [initialContent]);
+
+  const onChange = (newEditorState) => {
+    setEditorState(newEditorState);
+    const contentRaw = convertToRaw(newEditorState.getCurrentContent());
+    onContentChange(JSON.stringify(contentRaw));
+  };
+
   let className = "RichEditor-editor";
   const contentState = editorState.getCurrentContent();
   if (!contentState.hasText()) {
@@ -135,15 +160,6 @@ const RichEditorExample = (props) => {
       className += " RichEditor-hidePlaceholder";
     }
   }
-
-  // Modified onChange handler to include content propagation to parent
-  const onChange = (newEditorState) => {
-    setEditorState(newEditorState);
-    // Convert the current content to a raw JS object
-    const contentRaw = convertToRaw(newEditorState.getCurrentContent());
-    // Assuming you want to pass the raw content up as a string
-    props.onContentChange(JSON.stringify(contentRaw));
-  };
 
   return (
     <div className="RichEditor-root">

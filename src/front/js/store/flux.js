@@ -90,10 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
           }),
         };
-        const resp = await fetch(
-          process.env.BACKEND_URL + "/api/login",
-          opts
-        );
+        const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
         if (resp.status !== 200) {
           alert("Login Failed");
           return false;

@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Sidebar, Menu } from "react-pro-sidebar";
-import { Context } from "../store/appContext";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
+import { Sidebar, Menu } from "react-pro-sidebar";
 
 import "../../styles/index.css"; // Ensure this path is correct
 
-function JournalListSideBar() {
+function JournalListSideBarTest() {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
@@ -25,4 +25,4 @@ function JournalListSideBar() {
   );
 }
 
-export default JournalListSideBar;
+export default JournalListSideBarTest;
