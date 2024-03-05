@@ -23,37 +23,23 @@ const getState = ({ getStore, getActions, setStore }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${getStore().token}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         });
         const data = await resp.json();
         if (resp.status === 200) {
-          setStore({ userId: data.id });
+          console.log(data)
+          setStore({ user: data.user });
+          setStore({ userid: data.user.id });
+          return true
         } else {
           setStore({ userId: null });
+          return false
         }
         console.log("User ID", getStore().userId);
       },
 
-      getUser: async () => {
-        const resp = await fetch(
-          process.env.BACKEND_URL + "/api/user/profile",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getStore().token}`,
-            },
-          }
-        );
-        const data = await resp.json();
-        if (resp.status === 200) {
-          setStore({ userId: data.id });
-        } else {
-          setStore({ userId: null });
-        }
-        console.log("User ID", getStore().userId);
-      },
+
       register: async (email, password) => {
         const opts = {
           method: "POST",
@@ -104,10 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             password: password,
           }),
         };
-        const resp = await fetch(
-          process.env.BACKEND_URL + "/api/login",
-          opts
-        );
+        const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
         if (resp.status !== 200) {
           alert("Login Failed");
           return false;
@@ -161,7 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         };
 
-        const url = `${process.env.BACKEND_URL}/api/journal/${userId}`; // Use userId in the URL
+        const url = `${process.env.BACKEND_URL}/api/journal/${store.user.id}`; // Use userId in the URL
         const resp = await fetch(url, opts);
 
         if (resp.ok) {
