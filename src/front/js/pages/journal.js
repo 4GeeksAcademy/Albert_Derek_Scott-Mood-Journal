@@ -84,6 +84,7 @@ const Journal = () => {
                   <MoodSelector
                     moods={moodOptions}
                     onMoodChange={handleMoodChange}
+                    initialMoodId={moodContent}
                   />
                   <button
                     onClick={handleSubmit}
