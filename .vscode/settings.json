@@ -1,10 +1,13 @@
 {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "workbench.editorAssociations": {   
-        "*.md": "vscode.markdown.preview.editor"
-    },
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.autopep8"
-    }
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.editorAssociations": {
+    "*.md": "vscode.markdown.preview.editor"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+  }
 }

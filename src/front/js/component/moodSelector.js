@@ -21,7 +21,22 @@ const MoodSelector = ({ onMoodChange, moods, initialMoodId }) => {
 
   return (
     <div>
-      <select onChange={handleMoodChange} value={selectedMoodId || ""}>
+      <select
+        onChange={handleMoodChange}
+        value={selectedMoodId || ""}
+        style={{
+          margin: "10px 0",
+          width: "100%",
+          fontFamily: "inherit",
+          fontSize: "inherit",
+          cursor: "inherit",
+          lineHeight: "inherit",
+          background:
+            "linear-gradient(45deg, rgb(255, 107, 107), rgb(255, 166, 158), rgb(255, 211, 182))",
+          border: "none",
+          borderRadius: "5px",
+        }}
+      >
         <option value="">Select your mood</option>
         {moods.map((mood) => (
           <option key={mood.id} value={mood.id}>

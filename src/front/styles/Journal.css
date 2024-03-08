@@ -1,16 +1,17 @@
 /* Journal.css */
+/* @import url("https://fonts.googleapis.com/css2?family=Eater&family=Merienda:wght@300..900&display=swap")
 .body {
   background: linear-gradient(
     122deg,
     rgb(159, 87, 14) 0%,
     rgb(139, 102, 241) 100%
   );
-}
+} */
 
 .custom-sidebar .pro-sidebar {
   background-color: #f4f5f7; /* Example background color */
 }
-//from alberts branch
+/* //from alberts branch */
 .custom-sidebar .pro-menu-item {
   color: #333; /* Example text color */
 }
