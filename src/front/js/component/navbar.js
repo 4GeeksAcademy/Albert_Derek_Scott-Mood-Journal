@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../img/SerenityScribe.png";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
   const navigate = useNavigate();
 
-const fullName = sessionStorage.getItem("full_name")
 
+const { store } = useContext(Context);
+
+let fullName = ""
+if(store.user !== null) {
+fullName = store.user.full_name
+};
+console.log(fullName)
 
 
   const handleLogout = () => {
@@ -48,7 +55,7 @@ const fullName = sessionStorage.getItem("full_name")
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {fullName ? fullName : 'Profile'}
+              {fullName || 'Profile'}
             </button>
             <ul
               className="dropdown-menu"
