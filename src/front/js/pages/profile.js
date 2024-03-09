@@ -100,7 +100,7 @@ export default function Profile() {
                             {store.user?.full_name}
                           </h4>
                           <p className="mb-0">
-                          {store.user?.email}
+                            {store.user?.email}
                           </p>
                           <div className="text-muted">
                             <small>Last visited 2 hours ago</small>
