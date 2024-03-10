@@ -18,15 +18,14 @@ CORS(api)
 def register_user():
     data = request.get_json()
 
-    if not data or 'email' not in data or 'password' not in data:
-        return jsonify({'message': 'Missing email or password'}), 400
+    if not data or 'email' not in data or 'password' not in data or 'full_name' not in data:
+        return jsonify({'message': 'Missing email, password, or full name'}), 400
 
     if Users.query.filter_by(email=data['email']).first():
         return jsonify({'message': 'User already exists'}), 409
 
-    hashed_password = generate_password_hash(
-        data['password'], method='pbkdf2:sha256')
-    new_user = Users(email=data['email'], password_hash=hashed_password)
+    hashed_password = generate_password_hash(data['password'], method='pbkdf2:sha256')
+    new_user = Users(email=data['email'], password_hash=hashed_password, full_name=data['full_name'])
     db.session.add(new_user)
     db.session.commit()
 
