@@ -1,20 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-
+import "../../styles/profile.css"
 
 export default function Profile() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [showPhotoModal, setShowPhotoModal] = useState(false);
+  const [file, setFile] = useState();
 
   const { store, actions } = useContext(Context);
 
   useEffect(async () => {
     let result = await actions.getUser();
-    if (result){
-      setEmail(store.user.email)
-      setFullName(store.user.full_name)
+    if (result) {
+      setEmail(store.user.email);
+      setFullName(store.user.full_name);
     }
   }, []);
   const handleSaveChanges = async (e) => {
@@ -42,6 +43,10 @@ export default function Profile() {
       alert("Failed to update profile. Please try again.");
     }
   };
+  function uploadPhoto(e) {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
 
   return (
     <div className="container h-100">
@@ -61,37 +66,46 @@ export default function Profile() {
                   <div className="e-profile">
                     <div className="row">
                       <div className="col-12 col-sm-auto mb-3">
-                        <div
-                          className="mx-auto"
-                          style={{
-                            width: "140px",
-                            height: "140px",
-                            backgroundColor: "rgb(233, 236, 239)",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            borderRadius: "50%",
-                          }}
-                        >
-                          <span
+                        <div>
+                          {
+                            ({file})?
+                              <img className="photoPreview" src={file} />
+                            :
+                          <div
+                            className="mx-auto photoPreview"
                             style={{
-                              color: "rgb(166, 168, 170)",
-                              fontWeight: "bold",
-                              fontSize: "8pt",
+                              width: "140px",
+                              height: "140px",
+                              backgroundColor: "rgb(233, 236, 239)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              borderRadius: "50%",
                             }}
                           >
-                            140x140
-                          </span>
+                            <span
+                              style={{
+                                color: "rgb(166, 168, 170)",
+                                fontWeight: "bold",
+                                fontSize: "8pt",
+                              }}
+                            >
+                              140x140
+                            </span>
+                          </div>
+
+                          }
+                   
                         </div>
                         <div className="mt-2">
-                          <button
+                          <i className="fa fa-fw fa-camera"></i>
+                          <label for="uploadPhoto" class="col-sm-2 col-form-label">Change Photo</label>
+                          <input 
+                            id="uploadPhoto"
                             className="btn btn-primary"
-                            type="button"
-                            onClick={() => setShowPhotoModal(true)}
-                          >
-                            <i className="fa fa-fw fa-camera"></i>
-                            <span>Change Photo</span>
-                          </button>
+                            type="file"
+                            onChange={uploadPhoto}
+                          />
                         </div>
                       </div>
                       <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
@@ -99,9 +113,7 @@ export default function Profile() {
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
                             {store.user?.full_name}
                           </h4>
-                          <p className="mb-0">
-                          {store.user?.email}
-                          </p>
+                          <p className="mb-0">{store.user?.email}</p>
                           <div className="text-muted">
                             <small>Last visited 2 hours ago</small>
                           </div>
@@ -145,7 +157,7 @@ export default function Profile() {
                       </div>
                       <div className="row">
                         <div className="col d-flex justify-content-end">
-                          <button className="btn btn-primary" type="submit" >
+                          <button className="btn btn-primary" type="submit">
                             Save Changes
                           </button>
                         </div>
@@ -175,6 +187,7 @@ export default function Profile() {
               </div>
               <div className="modal-body">
                 <p>Upload or select a new photo.</p>
+                <input type="file" onChange={uploadPhoto} />
               </div>
               <div className="modal-footer">
                 <button
