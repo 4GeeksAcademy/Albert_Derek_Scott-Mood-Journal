@@ -8,9 +8,9 @@ import "../../styles/index.css"; // Ensure this path is correct
 function JournalListSideBarTest() {
   const { store, actions } = useContext(Context);
 
-  useEffect(() => {
-    actions.getJournal();
-  }, []);
+  // useEffect(() => {
+  //   actions.getJournal(store.user.id);
+  // }, []);
 
   return (
     <Sidebar>

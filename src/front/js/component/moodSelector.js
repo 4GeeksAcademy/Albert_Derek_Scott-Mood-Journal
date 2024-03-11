@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const MoodSelector = ({ onMoodChange, moods, initialContent }) => {
+const MoodSelector = ({ onMoodChange, moods, initialMoodId }) => {
   // Accept onMoodChange as a prop
   // State to keep track of the selected mood
   const [selectedMoodId, setSelectedMoodId] = useState(null);
+
+  useEffect(() => {
+    setSelectedMoodId(initialMoodId);
+  }, [initialMoodId]);
 
   // Handler for when a new mood is selected from the dropdown
   const handleMoodChange = (event) => {
@@ -17,7 +21,22 @@ const MoodSelector = ({ onMoodChange, moods, initialContent }) => {
 
   return (
     <div>
-      <select onChange={handleMoodChange} value={selectedMoodId || ""}>
+      <select
+        onChange={handleMoodChange}
+        value={selectedMoodId || ""}
+        style={{
+          margin: "10px 0",
+          width: "100%",
+          fontFamily: "inherit",
+          fontSize: "inherit",
+          cursor: "inherit",
+          lineHeight: "inherit",
+          background:
+            "linear-gradient(45deg, rgb(255, 107, 107), rgb(255, 166, 158), rgb(255, 211, 182))",
+          border: "none",
+          borderRadius: "5px",
+        }}
+      >
         <option value="">Select your mood</option>
         {moods.map((mood) => (
           <option key={mood.id} value={mood.id}>
