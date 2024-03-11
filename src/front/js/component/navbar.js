@@ -1,8 +1,10 @@
+
 import React, { useContext, useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../img/SerenityScribe.png";
 import { Context } from "../store/appContext";
 import { affirmations } from '../../../data/positiveAffirmations';
+
 
 
 export const Navbar = () => {
@@ -19,6 +21,7 @@ useEffect(() => {
   const intervalId = setInterval(() => {
     setCurrentAffirmation(affirmations[Math.floor(Math.random() * affirmations.length)]);
   }, 10000);
+
 
   return () => clearInterval(intervalId);
   }, []);
