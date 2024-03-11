@@ -19,32 +19,39 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       getUser: async () => {
-        const resp = await fetch(process.env.BACKEND_URL + "/api/user/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        });
+        const resp = await fetch(
+          process.env.BACKEND_URL + "/api/user/profile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          }
+        );
         const data = await resp.json();
         if (resp.status === 200) {
-          console.log(data)
+          console.log(data);
           setStore({ user: data.user });
           setStore({ userid: data.user.id });
-          return true
+          getActions().getJournal(data.user.id);
+          return true;
         } else {
           setStore({ userId: null });
-          return false
+          return false;
         }
         console.log("User ID", getStore().userId);
       },
 
 
-      register: async (email, password) => {
+
+      register: async (full_name, email, password) => {
+
         const opts = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            full_name: full_name,
             email: email,
             password: password,
           }),
@@ -123,18 +130,18 @@ const getState = ({ getStore, getActions, setStore }) => {
         );
         const data = await resp.json();
         if (resp.status === 200 || resp.status === 201) {
+          getActions().getJournal(getStore().user.id);
           return { success: true, message: data.message };
         } else {
           return { success: false, message: data.message };
         }
       },
 
-      getJournal: async () => {
+      getJournal: async (userId) => {
         const store = getStore();
         console.log("Store:", store); // Log the entire store
 
-        const token = store.token;
-        const userId = store.userId; // Get userId from the store
+        const token = sessionStorage.getItem("token");
 
         const opts = {
           method: "GET",
@@ -144,7 +151,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           },
         };
 
-        const url = `${process.env.BACKEND_URL}/api/journal/${store.user.id}`; // Use userId in the URL
+        const url = `${process.env.BACKEND_URL}/api/journal/${userId}`; // Use userId in the URL
         const resp = await fetch(url, opts);
 
         if (resp.ok) {

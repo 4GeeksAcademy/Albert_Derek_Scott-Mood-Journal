@@ -113,7 +113,11 @@ export default function Profile() {
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
                             {store.user?.full_name}
                           </h4>
-                          <p className="mb-0">{store.user?.email}</p>
+
+                          <p className="mb-0">
+                            {store.user?.email}
+                          </p>
+
                           <div className="text-muted">
                             <small>Last visited 2 hours ago</small>
                           </div>
@@ -157,7 +161,7 @@ export default function Profile() {
                       </div>
                       <div className="row">
                         <div className="col d-flex justify-content-end">
-                          <button className="btn btn-primary" type="submit">
+                          <button className="btn btn-primary" type="submit" >
                             Save Changes
                           </button>
                         </div>
