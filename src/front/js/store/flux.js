@@ -43,11 +43,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("User ID", getStore().userId);
       },
 
-      register: async (email, password) => {
+
+
+      register: async (full_name, email, password) => {
+
         const opts = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            full_name: full_name,
             email: email,
             password: password,
           }),

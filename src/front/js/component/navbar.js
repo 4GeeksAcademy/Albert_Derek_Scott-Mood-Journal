@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../img/SerenityScribe.png";
+import { Context } from "../store/appContext";
+import { affirmations } from '../../../data/positiveAffirmations';
+
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const { store } = useContext(Context);
+  const [currentAffirmation, setCurrentAffirmation] = useState(affirmations[0]);
 
-const fullName = sessionStorage.getItem("full_name")
+let fullName = ""
+if(store.user !== null) {
+fullName = store.user.full_name
+};
 
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setCurrentAffirmation(affirmations[Math.floor(Math.random() * affirmations.length)]);
+  }, 10000);
 
+  return () => clearInterval(intervalId);
+  }, []);
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -42,13 +56,16 @@ const fullName = sessionStorage.getItem("full_name")
           </>
         ) : (
           <div className="nav-item dropdown">
+             <div className="navbar-banner">
+              {currentAffirmation.description}
+            </div>
             <button
               className="btn btn-primary dropdown-toggle"
               id="navbarDropdownMenuLink"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {fullName ? fullName : 'Profile'}
+              {fullName || 'Profile'}
             </button>
             <ul
               className="dropdown-menu"

@@ -7,9 +7,9 @@ export const Register = () => {
   const { actions } = useContext(Context);
   const navigate = useNavigate();
 
-  const handleRegister = async (email, password) => {
+  const handleRegister = async (full_name, email, password) => {
     try {
-      const result = await actions.register(email, password);
+      const result = await actions.register(full_name, email, password);
       if (result && result.message === "Registered successfully") {
         console.log("Registration successful");
         navigate("/login"); // Navigate to login page after successful registration
@@ -27,20 +27,19 @@ export const Register = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          const full_name = e.target.full_name.value;
           const email = e.target.email.value;
           const password = e.target.password.value;
-          handleRegister(email, password);
+          handleRegister(full_name, email, password);
         }}
       >
-        <input type="email" name="email" placeholder="Email" required />
-        <br />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <br />
+        <input type="full_name" name="full_name" placeholder="Full Name"/><br />
+
+        <input type="email" name="email" placeholder="Email" required /><br />
+
+        <input type="password" name="password" placeholder="Password" required/><br />
+        
+        
         <button type="submit">Register</button>
       </form>
     </div>
