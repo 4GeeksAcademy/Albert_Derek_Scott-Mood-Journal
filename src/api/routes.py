@@ -190,6 +190,12 @@ def update_profile():
         response_body['password_message']= 'password successfully changed'
     else: 
         response_body['password_message']= 'no password changes'
+        
+    if 'avatar' in data and data["avatar"] != user.full_name:
+        user.avatar = data['avatar']
+        response_body['avatar_message']= 'Name successfully changed'
+    else:
+        response_body['email_message']= 'fullName field not sent'
     db.session.commit()
     return jsonify(response_body), 200
 

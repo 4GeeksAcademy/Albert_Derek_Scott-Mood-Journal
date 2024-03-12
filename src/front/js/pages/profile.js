@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/profile.css"
+import "../../styles/profile.css";
 
 export default function Profile() {
   const [fullName, setFullName] = useState("");
@@ -8,6 +8,7 @@ export default function Profile() {
   const [newPassword, setNewPassword] = useState("");
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [file, setFile] = useState();
+  const [b64file, setB64file] = useState(null);
 
   const { store, actions } = useContext(Context);
 
@@ -43,10 +44,16 @@ export default function Profile() {
       alert("Failed to update profile. Please try again.");
     }
   };
-  function uploadPhoto(e) {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
+
+  async function uploadPhoto(e) {
+    const f = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => setB64file(reader.result);
+    reader.readAsDataURL(f);
+    setFile(URL.createObjectURL(f));
   }
+
+  useEffect(() => console.log(b64file), [b64file]);
 
   return (
     <div className="container h-100">
@@ -67,40 +74,34 @@ export default function Profile() {
                     <div className="row">
                       <div className="col-12 col-sm-auto mb-3">
                         <div>
-                          {
-                            ({file})?
-                              <img className="photoPreview" src={file} />
-                            :
-                          <div
-                            className="mx-auto photoPreview"
-                            style={{
-                              width: "140px",
-                              height: "140px",
-                              backgroundColor: "rgb(233, 236, 239)",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              borderRadius: "50%",
-                            }}
-                          >
-                            <span
+                          {file ? (
+                            <img className="photoPreview" src={file} />
+                          ) : (
+                            <div
+                              className="mx-auto photoPreview"
                               style={{
-                                color: "rgb(166, 168, 170)",
-                                fontWeight: "bold",
-                                fontSize: "8pt",
+                                width: "140px",
+                                height: "140px",
+                                backgroundColor: "rgb(233, 236, 239)",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                borderRadius: "50%",
                               }}
                             >
-                              140x140
-                            </span>
-                          </div>
-
-                          }
-                   
+                              <img src={store.user?.avatar} />
+                            </div>
+                          )}
                         </div>
                         <div className="mt-2">
                           <i className="fa fa-fw fa-camera"></i>
-                          <label for="uploadPhoto" class="col-sm-2 col-form-label">Change Photo</label>
-                          <input 
+                          <label
+                            for="uploadPhoto"
+                            class="col-sm-2 col-form-label"
+                          >
+                            Change Photo
+                          </label>
+                          <input
                             id="uploadPhoto"
                             className="btn btn-primary"
                             type="file"
@@ -114,9 +115,7 @@ export default function Profile() {
                             {store.user?.full_name}
                           </h4>
 
-                          <p className="mb-0">
-                            {store.user?.email}
-                          </p>
+                          <p className="mb-0">{store.user?.email}</p>
 
                           <div className="text-muted">
                             <small>Last visited 2 hours ago</small>
@@ -161,7 +160,7 @@ export default function Profile() {
                       </div>
                       <div className="row">
                         <div className="col d-flex justify-content-end">
-                          <button className="btn btn-primary" type="submit" >
+                          <button className="btn btn-primary" type="submit">
                             Save Changes
                           </button>
                         </div>
