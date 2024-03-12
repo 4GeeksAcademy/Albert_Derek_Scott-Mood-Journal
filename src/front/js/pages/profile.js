@@ -8,7 +8,7 @@ export default function Profile() {
   const [newPassword, setNewPassword] = useState("");
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [file, setFile] = useState();
-  const [b64file, setB64file] = useState(null);
+  const [avatar, setavatar] = useState(null);
 
   const { store, actions } = useContext(Context);
 
@@ -29,7 +29,7 @@ export default function Profile() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ fullName, email, newPassword }),
+        body: JSON.stringify({ fullName, email, newPassword, avatar}),
       }
     );
 
@@ -48,12 +48,12 @@ export default function Profile() {
   async function uploadPhoto(e) {
     const f = e.target.files[0];
     const reader = new FileReader();
-    reader.onload = () => setB64file(reader.result);
+    reader.onload = () => setavatar(reader.result);
     reader.readAsDataURL(f);
     setFile(URL.createObjectURL(f));
   }
 
-  useEffect(() => console.log(b64file), [b64file]);
+  useEffect(() => console.log(avatar), [avatar]);
 
   return (
     <div className="container h-100">
