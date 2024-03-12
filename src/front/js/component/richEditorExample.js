@@ -142,8 +142,11 @@ const RichEditorExample = ({ onContentChange, initialContent }) => {
 
   useEffect(() => {
     if (initialContent) {
-      const content = convertFromRaw(JSON.parse(initialContent));
-      setEditorState(EditorState.createWithContent(content));
+      const contentState = convertFromRaw(JSON.parse(initialContent));
+      if (!editorState.getCurrentContent().equals(contentState)) {
+        const newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
+        setEditorState(EditorState.moveFocusToEnd(newEditorState));
+      }
     }
   }, [initialContent]);
 
