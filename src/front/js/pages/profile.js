@@ -138,7 +138,7 @@ export default function Profile() {
                           <p className="mb-0">{store.user?.email}</p>
 
                           <div className="text-muted">
-                            <small>Last visited 2 hours ago</small>
+                            <small></small>
                           </div>
                         </div>
                       </div>
