@@ -6,6 +6,7 @@ from flask import Flask, jsonify, send_from_directory, request
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
+from werkzeug.exceptions import RequestEntityTooLarge
 from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api as api_blueprint
@@ -31,6 +32,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # JWT Configuration
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 
+# File upload configuration
+app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024 # 3 MB
+
 # Initialize extensions
 db.init_app(app)
 jwt = JWTManager(app)
@@ -44,26 +48,24 @@ setup_commands(app)
 app.register_blueprint(api_blueprint, url_prefix='/api')
 
 # Error handling
-
-
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
+@app.errorhandler(RequestEntityTooLarge)
+def handle_file_too_large(e):
+    return jsonify({'message': 'File too large, please upload a file less than 2MB'}), 413
+
 # Sitemap and static file serving
-
-
 @app.route('/')
 def sitemap():
     if ENV == "development":
         return generate_sitemap(app)
     return app.send_static_file('index.html')
 
-
 @app.route('/<path:path>', methods=['GET'])
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
-
 
 # Main entry point
 if __name__ == '__main__':

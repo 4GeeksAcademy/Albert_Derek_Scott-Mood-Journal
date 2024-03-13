@@ -12,12 +12,15 @@ export default function Profile() {
 
   const { store, actions } = useContext(Context);
 
-  useEffect(async () => {
-    let result = await actions.getUser();
-    if (result) {
-      setEmail(store.user.email);
-      setFullName(store.user.full_name);
+  useEffect(() => {
+    async function fetchData() {
+      let result = await actions.getUser();
+      if (result) {
+        setEmail(store.user.email);
+        setFullName(store.user.full_name);
+      }
     }
+    fetchData();
   }, []);
   const handleSaveChanges = async (e) => {
     e.preventDefault();
@@ -29,7 +32,7 @@ export default function Profile() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ fullName, email, newPassword, avatar}),
+        body: JSON.stringify({ fullName, email, newPassword, avatar }),
       }
     );
 
@@ -46,11 +49,25 @@ export default function Profile() {
   };
 
   async function uploadPhoto(e) {
-    const f = e.target.files[0];
+    const file = e.target.files[0];
+    if (file.size > 3145728) {
+      // 3 MB in bytes
+      alert("File is too large. Maximum file size is 3MB.");
+      return; // Exit the function if file is too large
+    }
     const reader = new FileReader();
-    reader.onload = () => setavatar(reader.result);
-    reader.readAsDataURL(f);
-    setFile(URL.createObjectURL(f));
+    reader.onload = () => {
+      const base64String = reader.result;
+      // Check the size of base64 String, if necessary
+      if (base64String.length > 3145728 * 1.37) {
+        // Adjusting for base64 size increase
+        alert("File is too large after conversion. Try a smaller file.");
+        return;
+      }
+      setavatar(base64String);
+    };
+    reader.readAsDataURL(file);
+    setFile(URL.createObjectURL(file));
   }
 
   useEffect(() => console.log(avatar), [avatar]);
@@ -73,9 +90,12 @@ export default function Profile() {
                   <div className="e-profile">
                     <div className="row">
                       <div className="col-12 col-sm-auto mb-3">
-                        <div>
+                        <div className="photoPreview">
                           {file ? (
-                            <img className="photoPreview" src={file} />
+                            <img
+                              src={file ? file : store.user?.avatar}
+                              alt="Profile"
+                            />
                           ) : (
                             <div
                               className="mx-auto photoPreview"
@@ -96,8 +116,8 @@ export default function Profile() {
                         <div className="mt-2">
                           <i className="fa fa-fw fa-camera"></i>
                           <label
-                            for="uploadPhoto"
-                            class="col-sm-2 col-form-label"
+                            htmlFor="uploadPhoto"
+                            className="col-sm-2 col-form-label"
                           >
                             Change Photo
                           </label>
