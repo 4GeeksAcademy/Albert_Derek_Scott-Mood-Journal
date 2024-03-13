@@ -75,10 +75,10 @@ const Journal = () => {
         </div>
         <div className="col-md-9 d-flex">
           <div style={{ width: "100%" }}>
-            <div className="col-md-4">
+            <div className="col-md-6">
               <div className="editorContainer text-center">
                 <h1 className="mb-4">Journal</h1>
-                <div className="mt-3">
+                <div className="mt-3 d-flex flex-column align-items-center justify-content-center">
                   <MoodSelector
                     moods={moodOptions}
                     onMoodChange={handleMoodChange}
@@ -92,7 +92,7 @@ const Journal = () => {
                   <button
                     onClick={handleSubmit}
                     type="button"
-                    className="btn"
+                    className="btn px-5 py-2"
                     style={{
                       background:
                         "linear-gradient(45deg, #ff6b6b, #ffa69e, #ffd3b6)",

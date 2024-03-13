@@ -47,6 +47,10 @@ useEffect(() => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
+
+      { sessionStorage.getItem("token")&&<div className="navbar-banner ms-auto">
+              {currentAffirmation.description}
+            </div>}
       <div className="ms-auto">
         {!sessionStorage.getItem("token") ? (
           <>
@@ -59,9 +63,7 @@ useEffect(() => {
           </>
         ) : (
           <div className="nav-item dropdown">
-             <div className="navbar-banner">
-              {currentAffirmation.description}
-            </div>
+             
             <button
               className="btn btn-primary dropdown-toggle"
               id="navbarDropdownMenuLink"
