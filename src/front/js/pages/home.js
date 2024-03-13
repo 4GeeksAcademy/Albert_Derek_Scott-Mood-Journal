@@ -25,7 +25,7 @@ export const Home = () => {
       <div className="row">
         <div className="col-md-4 my-3">
           <div className="card">
-            <img src="..." className="card-img-top" alt="..." />
+            {/* <img src="..." className="card-img-top" alt="..." /> */}
             <div className="card-body">
               <h5 className="card-title">Janet Smith</h5>
               <p className="card-text">
@@ -38,7 +38,7 @@ export const Home = () => {
         </div>
         <div className="col-md-4 my-3">
           <div className="card">
-            <img src="..." className="card-img-top" alt="..." />
+            {/* <img src="..." className="card-img-top" alt="..." /> */}
             <div className="card-body">
               <h5 className="card-title">Marko Guiterez</h5>
               <p className="card-text">
@@ -49,7 +49,7 @@ export const Home = () => {
         </div>
         <div className="col-md-4 my-3">
           <div className="card">
-            <img src="..." className="card-img-top" alt="..." />
+            {/* <img src="..." className="card-img-top" alt="..." /> */}
             <div className="card-body">
               <h5 className="card-title">Sally Brown</h5>
               <p className="card-text">

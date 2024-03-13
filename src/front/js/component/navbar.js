@@ -81,7 +81,7 @@ useEffect(() => {
               </li>
               <li>
                 <Link className="dropdown-item" to="/profile">
-                  Settings
+                  Profile
                 </Link>
               </li>
               <li>
