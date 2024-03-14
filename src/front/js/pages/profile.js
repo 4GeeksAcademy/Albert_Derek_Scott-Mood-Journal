@@ -73,14 +73,14 @@ export default function Profile() {
   useEffect(() => console.log(avatar), [avatar]);
 
   return (
-    <div className="container h-100">
+    <div className="container h-100 d-flex justify-content-center align-items-center">
       <div className="row flex-lg-nowrap">
-        <div
+        {/* <div
           className="col-12 col-lg-auto mb-3"
           style={{ width: "200px", height: "800px" }}
         >
-          {/* Placeholder for side content if any */}
-        </div>
+          * Placeholder for side content if any *
+        </div> */}
 
         <div className="col">
           <div className="row">
@@ -113,13 +113,13 @@ export default function Profile() {
                             </div>
                           )}
                         </div>
-                        <div className="mt-2">
-                          <i className="fa fa-fw fa-camera"></i>
+                        <div className="mt-2 d-flex justify-content-between align-items-center">
+                          
                           <label
                             htmlFor="uploadPhoto"
-                            className="col-sm-2 col-form-label"
+                            className="col-sm-4 col-form-label"
                           >
-                            Change Photo
+                            <i className="fa fa-fw fa-camera"> </i> Change Photo
                           </label>
                           <input
                             id="uploadPhoto"
@@ -129,7 +129,7 @@ export default function Profile() {
                           />
                         </div>
                       </div>
-                      <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                      {/* <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div className="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
                             {store.user?.full_name}
@@ -137,11 +137,9 @@ export default function Profile() {
 
                           <p className="mb-0">{store.user?.email}</p>
 
-                          <div className="text-muted">
-                            <small></small>
-                          </div>
+                         
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                     <form className="form" onSubmit={handleSaveChanges}>

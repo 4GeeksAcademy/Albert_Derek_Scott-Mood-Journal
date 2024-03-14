@@ -20,7 +20,7 @@ const MoodSelector = ({ onMoodChange, moods, initialMoodId }) => {
   const selectedMood = moods.find((mood) => mood.id === selectedMoodId);
 
   return (
-    <div>
+    <div className="text-light">
       <select
         onChange={handleMoodChange}
         value={selectedMoodId || ""}

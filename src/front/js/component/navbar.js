@@ -32,9 +32,9 @@ useEffect(() => {
     window.location.href = "/login";
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/">
-        <img src={Logo} width="30" height="30" alt="Logo" />
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a className="navbar-brand justify-content-center ms-3" href="/">
+        <img src={Logo} width="40" height="30" alt="Logo" />
       </a>
       <button
         className="navbar-toggler"
@@ -47,6 +47,10 @@ useEffect(() => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
+
+      { sessionStorage.getItem("token")&&<div className="navbar-banner ms-auto text-light">
+              {currentAffirmation.description}
+            </div>}
       <div className="ms-auto">
         {!sessionStorage.getItem("token") ? (
           <>
@@ -59,9 +63,7 @@ useEffect(() => {
           </>
         ) : (
           <div className="nav-item dropdown">
-             <div className="navbar-banner">
-              {currentAffirmation.description}
-            </div>
+             
             <button
               className="btn btn-primary dropdown-toggle"
               id="navbarDropdownMenuLink"
