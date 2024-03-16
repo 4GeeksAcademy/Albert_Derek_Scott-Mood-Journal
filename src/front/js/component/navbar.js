@@ -1,29 +1,27 @@
-
-import React, { useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../img/SerenityScribe.png";
 import { Context } from "../store/appContext";
-import { affirmations } from '../../../data/positiveAffirmations';
-
-
+import { affirmations } from "../../../data/positiveAffirmations";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const { store } = useContext(Context);
   const [currentAffirmation, setCurrentAffirmation] = useState(affirmations[0]);
 
-let fullName = ""
-if(store.user !== null) {
-fullName = store.user.full_name
-};
+  let fullName = "";
+  if (store.user !== null) {
+    fullName = store.user.full_name;
+  }
 
-useEffect(() => {
-  const intervalId = setInterval(() => {
-    setCurrentAffirmation(affirmations[Math.floor(Math.random() * affirmations.length)]);
-  }, 10000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentAffirmation(
+        affirmations[Math.floor(Math.random() * affirmations.length)]
+      );
+    }, 10000);
 
-
-  return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleLogout = () => {
@@ -48,9 +46,11 @@ useEffect(() => {
         <span className="navbar-toggler-icon"></span>
       </button>
 
-      { sessionStorage.getItem("token")&&<div className="navbar-banner ms-auto text-light">
-              {currentAffirmation.description}
-            </div>}
+      {sessionStorage.getItem("token") && (
+        <div className="navbar-banner ms-auto text-light">
+          {currentAffirmation.description}
+        </div>
+      )}
       <div className="ms-auto">
         {!sessionStorage.getItem("token") ? (
           <>
@@ -63,14 +63,13 @@ useEffect(() => {
           </>
         ) : (
           <div className="nav-item dropdown">
-             
             <button
-              className="btn btn-primary dropdown-toggle"
+              className="btn btn-primary dropdown-toggle me-3"
               id="navbarDropdownMenuLink"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {fullName || 'Profile'}
+              {fullName || "Profile"}
             </button>
             <ul
               className="dropdown-menu"
