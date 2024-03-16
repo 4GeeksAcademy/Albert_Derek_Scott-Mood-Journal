@@ -9,7 +9,7 @@ import "../styles/index.css";
 import Layout from "./layout";
 
 //import background image
- import backgroundImage from "/src/front/img/gradient-background.jpg";
+ import backgroundImage from "/src/front/img/6830044.jpg";
 
 //set background image for the entire page
 document.body.style.backgroundImage = `url(${backgroundImage})`;

@@ -92,7 +92,7 @@ const Journal = () => {
                   <button
                     onClick={handleSubmit}
                     type="button"
-                    className="btn px-5 py-2"
+                    className="btn px-5 py-2 mt-3"
                     style={{
                       background:
                         "linear-gradient(45deg, #ff6b6b, #ffa69e, #ffd3b6)",
