@@ -77,7 +77,7 @@ const Journal = () => {
           <div style={{ width: "100%" }}>
             <div className="col-md-6">
               <div className="editorContainer text-center">
-                <h1 className="mb-4">Journal</h1>
+                <h1 className="mb-3 mt-3">Journal</h1>
                 <div className="mt-3 d-flex flex-column align-items-center justify-content-center">
                   <MoodSelector
                     moods={moodOptions}
@@ -95,7 +95,7 @@ const Journal = () => {
                     className="btn px-5 py-2 mt-3"
                     style={{
                       background:
-                        "linear-gradient(45deg, #ff6b6b, #ffa69e, #ffd3b6)",
+                        "linear-gradient(45deg, #0947FE, #0197F8, #01D6F8)",
                     }}
                   >
                     Submit
