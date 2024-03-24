@@ -22,8 +22,9 @@ export const Register = () => {
   };
 
   return (
+    <div className="content-wrapper h-100">
     <div className="text-center mt-5">
-      <h1>Register Page</h1>
+      <h1>Register a New Scribe</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -40,8 +41,9 @@ export const Register = () => {
         <input type="password" name="password" placeholder="Password" required/><br />
         
         
-        <button type="submit">Register</button>
+        <button className="mt-3 mb-3" type="submit">Register</button>
       </form>
+    </div>
     </div>
   );
 };

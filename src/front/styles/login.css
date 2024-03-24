@@ -1,17 +1,16 @@
-.login-body {
+/* .login-body {
   background: linear-gradient(45deg, #0947FE, #0197F8, #01D6F8 );
-}
+} */
 .card-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(45deg, #0947FE, #0197F8, #01D6F8 );
+  background: linear-gradient(45deg, #0947fe, #0197f8, #01d6f8);
   border-radius: 3px;
   padding: 20px;
   box-shadow: 0px 0px 20px 29px rgba(52, 13, 183, 0.4);
 }
-
 .text-center {
   text-align: center;
 }
@@ -23,7 +22,7 @@ h1 {
 }
 
 .btn-custom {
-  background-color: #0947FE;
+  background-color: #0947fe;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -38,6 +37,6 @@ h1 {
 
 .btn-custom:hover {
   background-color: white;
-  color: #0947FE;
-  border: 2px solid #0197F8;
+  color: #0947fe;
+  border: 2px solid #0197f8;
 }

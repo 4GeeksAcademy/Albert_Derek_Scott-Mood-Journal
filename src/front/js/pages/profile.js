@@ -107,8 +107,7 @@ export default function Profile() {
                                 justifyContent: "center",
                                 alignItems: "center",
                                 borderRadius: "50%",
-                              }}
-                            >
+                              }}                             >
                               <img src={store.user?.avatar} />
                             </div>
                           )}
@@ -129,7 +128,7 @@ export default function Profile() {
                           />
                         </div>
                       </div>
-                      {/* <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                      <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <div className="text-center text-sm-left mb-2 mb-sm-0">
                           <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">
                             {store.user?.full_name}
@@ -139,7 +138,7 @@ export default function Profile() {
 
                          
                         </div>
-                      </div> */}
+                      </div>
                     </div>
 
                     <form className="form" onSubmit={handleSaveChanges}>
@@ -233,3 +232,6 @@ export default function Profile() {
     </div>
   );
 }
+// random comment more random comments some more random comments even more random comments more random comments more random random comments
+// very important comment this is hopefully keeping my codespace alive lets keep this comment going hope this works keep me alive please
+// stayin alive, stayin alive, ah ah ah ah stayin alive, stayin alive staying alive. keep going codespace.
