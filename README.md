@@ -1,13 +1,70 @@
-# WebApp boilerplate with React JS and Flask API
+# Serenity Scribe
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+## Overview
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+Serenity Scribe is a digital platform that allows users to record their daily moods and journal entries. It aims to help users track their emotional well-being over time, offering insights and affirmations to encourage positive mental health practices. This document outlines the technical design and architecture of the Mood Journal website, including the frontend and backend components, database design, and third-party integrations.
+
+## System Architecture
+
+### Frontend
+
+**Technology Stack:** The frontend will be developed using React for building the user interface and Bootstrap CSS for styling.
+
+**Pages and Components:**
+- **Registration/Login Page:** Allows users to register an account or log in to the platform.
+- **Journal Page:** A form for users to write and submit their daily journal entries and mood ratings.
+- **Past Journals Page:** Displays a list of past journal entries that users can view and edit.
+- **Analytics Page:** Shows graphs and analytics on past moods and journal entries.
+- **Affirmations:** After submitting a journal entry, users receive a daily affirmation via a third-party API.
+
+### Backend
+
+**Technology Stack:** The backend server will be implemented using Flask, with SQLAlchemy for ORM.
+
+**API Endpoints:**
+- **User Authentication:** Endpoints for user registration and login.
+- **Journal Management:** Endpoints to create, read, update, and delete journal entries.
+- **Analytics:** Endpoints to provide analytics based on user journal entries.
+- **Affirmations:** An endpoint to fetch daily affirmations from a third-party API.
+
+### Database
+
+**Technology:** SQLite
+
+**Schema:**
+- **Users:** Stores user information, including username, email, and hashed passwords.
+- **JournalEntries:** Stores journal entries, including content, mood rating, and timestamps.
+
+### Third-Party Integrations
+
+- **Daily Affirmations API:** A free API to fetch daily affirmations for users upon journal entry submission.
+
+## Development Plan
+
+### Phase 1: Backend Setup
+
+- Set up the Flask application and configure SQLAlchemy.
+- Implement database models for users and journal entries.
+- Develop the API endpoints for user authentication and journal management.
+- Integrate the third-party API for daily affirmations.
+
+### Phase 2: Frontend Development
+
+- Initialize the React application.
+- Develop the UI components for the registration/login, journal, past journals, and analytics pages.
+- Implement state management for handling user sessions and journal data.
+- Connect the frontend to the backend via API calls.
+
+### Phase 3: Testing and Deployment
+
+- Perform unit and integration testing on both the frontend and backend.
+- Deploy the backend to a cloud service provider (e.g., Heroku, AWS).
+- Deploy the frontend to a static site hosting service (e.g., Vercel, Netlify).
+- Conduct end-to-end testing to ensure system integrity and user experience.
+
+### Notes on running:
+
+- flask import-moods "/src/data/moodData.json"
 
 ### 1) Installation:
 
@@ -74,8 +131,3 @@ Every Github codespace environment will have **its own database**, so if you're 
 
 This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
 
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
