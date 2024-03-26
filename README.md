@@ -8,7 +8,7 @@ Serenity Scribe is a digital platform that allows users to record their daily mo
 
 ### Frontend
 
-**Technology Stack:** The frontend will be developed using React for building the user interface, Tailwind CSS for styling, and Shadcn for state management.
+**Technology Stack:** The frontend will be developed using React for building the user interface and Bootstrap CSS for styling.
 
 **Pages and Components:**
 - **Registration/Login Page:** Allows users to register an account or log in to the platform.
