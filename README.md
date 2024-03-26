@@ -1,4 +1,4 @@
-# Serenity Scribe Design Document
+# Serenity Scribe
 
 ## Overview
 
