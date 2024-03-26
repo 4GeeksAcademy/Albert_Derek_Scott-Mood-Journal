@@ -50,7 +50,7 @@ Serenity Scribe is a digital platform that allows users to record their daily mo
 
 ### Phase 2: Frontend Development
 
-- Initialize the React application with Tailwind CSS and Shadcn.
+- Initialize the React application.
 - Develop the UI components for the registration/login, journal, past journals, and analytics pages.
 - Implement state management for handling user sessions and journal data.
 - Connect the frontend to the backend via API calls.
