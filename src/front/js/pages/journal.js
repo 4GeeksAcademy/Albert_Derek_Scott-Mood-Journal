@@ -77,7 +77,7 @@ const Journal = () => {
           <div style={{ width: "100%" }}>
             <div className="col-md-6">
               <div className="editorContainer text-center">
-                <h1 className="mb-3 mt-3">Journal</h1>
+                <h2 className="mb-5 mt-5">Your New Journal Entry</h2>
                 <div className="mt-3 d-flex flex-column align-items-center justify-content-center">
                   <MoodSelector
                     moods={moodOptions}
