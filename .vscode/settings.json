@@ -8,6 +8,6 @@
     "editor.defaultFormatter": "ms-python.autopep8"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

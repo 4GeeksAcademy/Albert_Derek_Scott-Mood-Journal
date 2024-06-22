@@ -1,3 +1,4 @@
+
 # Serenity Scribe
 
 ## Overview
@@ -14,7 +15,6 @@ Serenity Scribe is a digital platform that allows users to record their daily mo
 - **Registration/Login Page:** Allows users to register an account or log in to the platform.
 - **Journal Page:** A form for users to write and submit their daily journal entries and mood ratings.
 - **Past Journals Page:** Displays a list of past journal entries that users can view and edit.
-- **Analytics Page:** Shows graphs and analytics on past moods and journal entries.
 - **Affirmations:** After submitting a journal entry, users receive a daily affirmation via a third-party API.
 
 ### Backend
@@ -51,7 +51,7 @@ Serenity Scribe is a digital platform that allows users to record their daily mo
 ### Phase 2: Frontend Development
 
 - Initialize the React application.
-- Develop the UI components for the registration/login, journal, past journals, and analytics pages.
+- Develop the UI components for the registration/login, journal, and past journals,.
 - Implement state management for handling user sessions and journal data.
 - Connect the frontend to the backend via API calls.
 
@@ -64,7 +64,8 @@ Serenity Scribe is a digital platform that allows users to record their daily mo
 
 ### Notes on running:
 
-- flask import-moods "/src/data/moodData.json"
+- pipenv shell
+- flask import-moods "/workspaces/Albert_Derek_Scott-Mood-Journal/src/data/moodData.json"
 
 ### 1) Installation:
 
@@ -130,4 +131,3 @@ Every Github codespace environment will have **its own database**, so if you're 
 ## Publish your website!
 
 This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
-

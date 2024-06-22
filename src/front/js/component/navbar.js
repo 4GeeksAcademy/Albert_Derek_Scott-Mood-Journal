@@ -30,7 +30,7 @@ export const Navbar = () => {
     window.location.href = "/login";
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark pe-3">
       <a className="navbar-brand justify-content-center ms-3" href="/">
         <img src={Logo} width="40" height="30" alt="Logo" />
       </a>
@@ -55,7 +55,7 @@ export const Navbar = () => {
         {!sessionStorage.getItem("token") ? (
           <>
             <Link to="/login">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary me-3">Login</button>
             </Link>
             <Link to="/register">
               <button className="btn btn-secondary ">Register</button>
